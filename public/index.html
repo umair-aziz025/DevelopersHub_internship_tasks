@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚨 Vulnerable User Management System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .warning {
+            background: #ff4757;
+            color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-bottom: 0.5rem;
+        }
+
+        button:hover {
+            background: #5a6fd8;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 1rem;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 0.75rem;
+            background: #f1f1f1;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .tab.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .tab:hover {
+            background: #e0e0e0;
+        }
+
+        .tab.active:hover {
+            background: #5a6fd8;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .success {
+            background: #2ed573;
+            color: white;
+        }
+
+        .error {
+            background: #ff4757;
+            color: white;
+        }
+
+        .profile-info {
+            background: #f1f1f1;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+
+        .vulnerability-hint {
+            background: #ffa502;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="warning">
+            ⚠️ VULNERABLE SYSTEM - FOR TESTING ONLY ⚠️
+        </div>
+        
+        <h1>🔓 User Management System</h1>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('login')">Login</button>
+            <button class="tab" onclick="showTab('signup')">Signup</button>
+            <button class="tab" onclick="showTab('profile')">Profile</button>
+        </div>
+
+        <!-- Login Tab -->
+        <div id="login" class="tab-content active">
+            <form id="loginForm" method="post" action="/api/login">
+                <div class="form-group">
+                    <label>Username:</label>
+                    <input type="text" id="loginUsername" name="username" placeholder="Try: admin' OR '1'='1" required>
+                </div>
+                <div class="form-group">
+                    <label>Password:</label>
+                    <input type="password" id="loginPassword" name="password" placeholder="Try: admin' OR '1'='1" required>
+                </div>
+                <button type="submit">Login</button>
+                <div class="vulnerability-hint">
+                    🐛 Try SQL injection: admin' OR '1'='1
+                </div>
+            </form>
+        </div>
+
+        <!-- Signup Tab -->
+        <div id="signup" class="tab-content">
+            <form id="signupForm" method="post" action="/api/signup">
+                <div class="form-group">
+                    <label>Username:</label>
+                    <input type="text" id="signupUsername" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" id="signupEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Password:</label>
+                    <input type="password" id="signupPassword" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label>Profile Info:</label>
+                    <textarea id="signupProfile" name="profile_info" rows="3" placeholder="Try XSS: <script>alert('XSS')</script>"></textarea>
+                </div>
+                <button type="submit">Sign Up</button>
+                <div class="vulnerability-hint">
+                    🐛 Try XSS in profile: &lt;script&gt;alert('XSS')&lt;/script&gt;
+                </div>
+            </form>
+        </div>
+
+        <!-- Profile Tab -->
+        <div id="profile" class="tab-content">
+            <form id="profileForm">
+                <div class="form-group">
+                    <label>Username to view:</label>
+                    <input type="text" id="profileUsername" name="username" placeholder="admin" required>
+                </div>
+                <button type="submit">View Profile</button>
+                <button type="button" onclick="viewAllUsers()">View All Users (Admin)</button>
+                <div class="vulnerability-hint">
+                    🐛 No authentication required! Anyone can view profiles
+                </div>
+            </form>
+            
+            <div id="profileResult" class="profile-info" style="display: none;">
+                <!-- Profile data will be displayed here -->
+            </div>
+        </div>
+
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        // Tab switching
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+            
+            // Hide result
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('profileResult').style.display = 'none';
+        }
+
+        // Login form handler
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            
+            try {
+                console.log('Sending login request:', data);
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                console.log('Response status:', response.status);
+                console.log('Response headers:', response.headers);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    const text = await response.text();
+                    console.error('Non-JSON response:', text);
+                    throw new Error('Server returned non-JSON response: ' + text);
+                }
+                
+                const result = await response.json();
+                console.log('Login result:', result);
+                showResult(result, response.ok);
+                
+                if (result.success) {
+                    // Store user data for profile viewing
+                    localStorage.setItem('currentUser', JSON.stringify(result.user));
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showResult({ message: 'Network error: ' + error.message }, false);
+            }
+        });
+
+        // Signup form handler
+        document.getElementById('signupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            console.log('Signup form submitted - preventDefault called');
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            
+            try {
+                console.log('Sending signup request:', data);
+                const response = await fetch('/api/signup', {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                console.log('Signup response status:', response.status);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    const text = await response.text();
+                    console.error('Non-JSON response:', text);
+                    throw new Error('Server returned non-JSON response: ' + text);
+                }
+                
+                const result = await response.json();
+                console.log('Signup result:', result);
+                showResult(result, response.ok);
+            } catch (error) {
+                console.error('Signup error:', error);
+                showResult({ message: 'Network error: ' + error.message }, false);
+            }
+        });
+
+        // Profile form handler
+        document.getElementById('profileForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('profileUsername').value;
+            
+            try {
+                const response = await fetch(`/api/profile/${username}`);
+                const result = await response.json();
+                
+                if (response.ok) {
+                    displayProfile(result);
+                } else {
+                    showResult(result, false);
+                }
+            } catch (error) {
+                showResult({ message: 'Network error: ' + error.message }, false);
+            }
+        });
+
+        // View all users (vulnerable admin endpoint)
+        async function viewAllUsers() {
+            try {
+                const response = await fetch('/api/admin/users');
+                const result = await response.json();
+                
+                if (response.ok) {
+                    displayAllUsers(result.users);
+                } else {
+                    showResult(result, false);
+                }
+            } catch (error) {
+                showResult({ message: 'Network error: ' + error.message }, false);
+            }
+        }
+
+        // Display single profile (VULNERABLE: No XSS protection)
+        function displayProfile(profile) {
+            const profileDiv = document.getElementById('profileResult');
+            // VULNERABILITY: innerHTML allows XSS execution
+            profileDiv.innerHTML = `
+                <h3>Profile Information</h3>
+                <p><strong>Username:</strong> ${profile.username}</p>
+                <p><strong>Email:</strong> ${profile.email}</p>
+                <p><strong>Profile Info:</strong> ${profile.profile_info}</p>
+            `;
+            profileDiv.style.display = 'block';
+        }
+
+        // Display all users (VULNERABLE: Exposing sensitive data)
+        function displayAllUsers(users) {
+            const profileDiv = document.getElementById('profileResult');
+            let html = '<h3>🚨 All Users (VULNERABLE ADMIN ACCESS)</h3>';
+            
+            users.forEach(user => {
+                // VULNERABILITY: Displaying passwords and allowing XSS
+                html += `
+                    <div style="border: 1px solid #ddd; padding: 10px; margin: 10px 0; border-radius: 5px;">
+                        <p><strong>ID:</strong> ${user.id}</p>
+                        <p><strong>Username:</strong> ${user.username}</p>
+                        <p><strong>Email:</strong> ${user.email}</p>
+                        <p><strong>Password:</strong> ${user.password}</p>
+                        <p><strong>Profile:</strong> ${user.profile_info}</p>
+                    </div>
+                `;
+            });
+            
+            profileDiv.innerHTML = html;
+            profileDiv.style.display = 'block';
+        }
+
+        // Show result message
+        function showResult(result, isSuccess) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = result.message || JSON.stringify(result);
+            resultDiv.className = `result ${isSuccess ? 'success' : 'error'}`;
+            resultDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

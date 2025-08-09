@@ -1,0 +1,64 @@
+{
+  "name": "developershub-cybersecurity-internship",
+  "version": "3.0.0",
+  "description": "Complete 3-week cybersecurity internship project: Vulnerability assessment to secure implementation",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "vulnerable": "node server.js",
+    "secure": "node secure-server.js",
+    "dev": "nodemon server.js",
+    "dev-secure": "nodemon secure-server.js",
+    "install-security": "npm install validator bcrypt jsonwebtoken helmet winston",
+    "logs": "tail -f security.log",
+    "test-vulnerable": "echo 'Starting vulnerable app for testing...' && node server.js",
+    "test-secure": "echo 'Starting secure app for production...' && node secure-server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/umair-aziz025/DevelopersHub_internship_tasks.git"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "path": "^0.12.7",
+    "sqlite3": "^5.1.6",
+    "validator": "^13.15.15",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "cybersecurity",
+    "security-assessment",
+    "penetration-testing",
+    "owasp",
+    "vulnerable-application",
+    "secure-coding",
+    "jwt-authentication",
+    "sql-injection-prevention",
+    "xss-protection",
+    "educational",
+    "internship",
+    "developershub"
+  ],
+  "author": {
+    "name": "Umair Aziz",
+    "email": "umair.aziz025@example.com",
+    "url": "http://github.com/umair-aziz025"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "homepage": "http://github.com/umair-aziz025/DevelopersHub_internship_tasks#readme",
+  "bugs": {
+    "url": "http://github.com/umair-aziz025/DevelopersHub_internship_tasks/issues"
+  }
+}

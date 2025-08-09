@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔒 Secure User Management System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #2d5a27 0%, #4a7c59 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .security-badge {
+            background: #27ae60;
+            color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #27ae60;
+        }
+
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-bottom: 0.5rem;
+        }
+
+        button:hover {
+            background: #229954;
+        }
+
+        button:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 1rem;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 0.75rem;
+            background: #f1f1f1;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .tab.active {
+            background: #27ae60;
+            color: white;
+            border-color: #27ae60;
+        }
+
+        .tab:hover {
+            background: #e0e0e0;
+        }
+
+        .tab.active:hover {
+            background: #229954;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .success {
+            background: #d5f4e6;
+            color: #27ae60;
+            border: 1px solid #27ae60;
+        }
+
+        .error {
+            background: #fdf2f2;
+            color: #e74c3c;
+            border: 1px solid #e74c3c;
+        }
+
+        .profile-info {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+            border: 1px solid #dee2e6;
+        }
+
+        .security-info {
+            background: #e8f5e8;
+            color: #2d5a27;
+            padding: 0.5rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .auth-info {
+            background: #fff3cd;
+            color: #856404;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            border: 1px solid #ffeaa7;
+        }
+
+        .password-requirements {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        .logout-section {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 5px;
+            border: 1px solid #dee2e6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="security-badge">
+            🔒 SECURE SYSTEM - WEEK 2 IMPLEMENTATION
+        </div>
+        
+        <h1>🛡️ Secure User Management</h1>
+        
+        <div class="auth-info" id="authInfo" style="display: none;">
+            <strong>Logged in as:</strong> <span id="currentUser"></span>
+            <div class="logout-section">
+                <button id="logoutBtn" style="width: auto; padding: 0.5rem 1rem;">Logout</button>
+            </div>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab active" data-tab="login" id="loginTab">Login</button>
+            <button class="tab" data-tab="signup" id="signupTab">Signup</button>
+            <button class="tab" data-tab="profile" id="profileTab">Profile</button>
+            <button class="tab" data-tab="admin" id="adminTab">Admin</button>
+        </div>
+
+        <!-- Login Tab -->
+        <div id="login" class="tab-content active">
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Username:</label>
+                    <input type="text" id="loginUsername" name="username" required minlength="3" maxlength="50">
+                </div>
+                <div class="form-group">
+                    <label>Password:</label>
+                    <input type="password" id="loginPassword" name="password" required minlength="8">
+                </div>
+                <button type="submit">Secure Login</button>
+                <div class="security-info">
+                    🔒 Secure login with JWT tokens, rate limiting, and account lockout protection
+                </div>
+            </form>
+        </div>
+
+        <!-- Signup Tab -->
+        <div id="signup" class="tab-content">
+            <form id="signupForm">
+                <div class="form-group">
+                    <label>Username:</label>
+                    <input type="text" id="signupUsername" name="username" required minlength="3" maxlength="50" pattern="[a-zA-Z0-9]+">
+                    <small>3-50 alphanumeric characters only</small>
+                </div>
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" id="signupEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Password:</label>
+                    <input type="password" id="signupPassword" name="password" required minlength="8">
+                    <div class="password-requirements">
+                        Password must contain: 8+ characters, uppercase, lowercase, number, and symbol
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Profile Info:</label>
+                    <textarea id="signupProfile" name="profile_info" rows="3" placeholder="Tell us about yourself (input will be sanitized)"></textarea>
+                </div>
+                <button type="submit">Secure Signup</button>
+                <div class="security-info">
+                    🛡️ Input validation, sanitization, strong password requirements, and secure password hashing
+                </div>
+            </form>
+        </div>
+
+        <!-- Profile Tab -->
+        <div id="profile" class="tab-content">
+            <form id="profileForm">
+                <div class="form-group">
+                    <label>Username to view:</label>
+                    <input type="text" id="profileUsername" name="username" required pattern="[a-zA-Z0-9]+">
+                </div>
+                <button type="submit">View Profile (Requires Auth)</button>
+                <div class="security-info">
+                    🔐 Authentication required - XSS prevented through input sanitization
+                </div>
+            </form>
+            
+            <div id="profileResult" class="profile-info" style="display: none;">
+                <!-- Profile data will be displayed here -->
+            </div>
+        </div>
+
+        <!-- Admin Tab -->
+        <div id="admin" class="tab-content">
+            <div class="form-group">
+                <button type="button" id="viewAllUsersBtn">View All Users (Admin Only)</button>
+                <div class="security-info">
+                    👑 Admin authentication required - No sensitive data exposure
+                </div>
+            </div>
+            
+            <div id="adminResult" class="profile-info" style="display: none;">
+                <!-- Admin data will be displayed here -->
+            </div>
+        </div>
+
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        let authToken = localStorage.getItem('authToken');
+        let currentUserData = null;
+
+        // Check if user is logged in on page load
+        if (authToken) {
+            try {
+                const tokenData = JSON.parse(atob(authToken.split('.')[1]));
+                if (tokenData.exp > Date.now() / 1000) {
+                    showAuthInfo(tokenData);
+                } else {
+                    logout();
+                }
+            } catch (error) {
+                logout();
+            }
+        }
+
+        // Tab switching
+        function showTab(tabName) {
+            console.log('Switching to tab:', tabName);
+            
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all tab buttons
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            const targetTab = document.getElementById(tabName);
+            if (targetTab) {
+                targetTab.classList.add('active');
+            }
+            
+            // Activate the corresponding tab button
+            const targetButton = document.getElementById(tabName + 'Tab');
+            if (targetButton) {
+                targetButton.classList.add('active');
+            }
+            
+            // Hide result areas
+            document.getElementById('result').style.display = 'none';
+            const profileResult = document.getElementById('profileResult');
+            const adminResult = document.getElementById('adminResult');
+            if (profileResult) profileResult.style.display = 'none';
+            if (adminResult) adminResult.style.display = 'none';
+            
+            console.log('Tab switched to:', tabName);
+        }
+
+        // Show authentication info
+        function showAuthInfo(tokenData) {
+            const authInfoDiv = document.getElementById('authInfo');
+            const currentUserSpan = document.getElementById('currentUser');
+            
+            authInfoDiv.style.display = 'block';
+            authInfoDiv.style.backgroundColor = '#d4edda';
+            authInfoDiv.style.borderColor = '#c3e6cb';
+            authInfoDiv.style.color = '#155724';
+            
+            currentUserSpan.textContent = `${tokenData.username} (${tokenData.email})`;
+            currentUserData = tokenData;
+            
+            console.log('User authenticated:', tokenData);
+        }
+
+        // Logout function
+        async function logout() {
+            if (authToken) {
+                try {
+                    await fetch('/api/logout', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${authToken}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                } catch (error) {
+                    console.log('Logout request failed, but clearing local storage');
+                }
+            }
+            
+            localStorage.removeItem('authToken');
+            authToken = null;
+            currentUserData = null;
+            document.getElementById('authInfo').style.display = 'none';
+            showResult({ message: 'Logged out successfully' }, true);
+        }
+
+        // Login form handler
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            
+            try {
+                console.log('Attempting login...', data.username);
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                console.log('Login response:', result);
+                
+                if (response.ok && result.success) {
+                    authToken = result.token;
+                    localStorage.setItem('authToken', authToken);
+                    const tokenData = JSON.parse(atob(authToken.split('.')[1]));
+                    showAuthInfo(tokenData);
+                    
+                    // Show success message
+                    showResult({ 
+                        message: `🎉 Welcome ${tokenData.username}! Login successful. You can now access Profile and Admin tabs.` 
+                    }, true);
+                    
+                    // Clear form
+                    e.target.reset();
+                    
+                    // Auto-switch to profile tab to show they're logged in
+                    setTimeout(() => {
+                        showTab('profile');
+                    }, 2000);
+                    
+                } else {
+                    console.error('Login failed:', result);
+                    showResult(result, false);
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showResult({ message: 'Network error: ' + error.message }, false);
+            }
+        });
+
+        // Signup form handler
+        document.getElementById('signupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            
+            try {
+                const response = await fetch('/api/signup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                showResult(result, response.ok);
+                
+                if (response.ok) {
+                    e.target.reset();
+                }
+            } catch (error) {
+                showResult({ message: 'Network error: ' + error.message }, false);
+            }
+        });
+
+        // Profile form handler
+        document.getElementById('profileForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            if (!authToken) {
+                showResult({ message: 'Please login first to view profiles' }, false);
+                return;
+            }
+            
+            const username = document.getElementById('profileUsername').value;
+            
+            try {
+                const response = await fetch(`/api/profile/${username}`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    displayProfile(result);
+                } else {
+                    showResult(result, false);
+                }
+            } catch (error) {
+                showResult({ message: 'Network error: ' + error.message }, false);
+            }
+        });
+
+        // View all users (admin function)
+        async function viewAllUsers() {
+            if (!authToken) {
+                showResult({ message: 'Please login first' }, false);
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/admin/users', {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    displayAllUsers(result.users);
+                } else {
+                    showResult(result, false);
+                }
+            } catch (error) {
+                showResult({ message: 'Network error: ' + error.message }, false);
+            }
+        }
+
+        // Display single profile (SECURE: XSS prevented through input sanitization)
+        function displayProfile(profile) {
+            const profileDiv = document.getElementById('profileResult');
+            // Using textContent instead of innerHTML to prevent XSS
+            profileDiv.innerHTML = `
+                <h3>Profile Information</h3>
+                <p><strong>Username:</strong> ${escapeHtml(profile.username)}</p>
+                <p><strong>Email:</strong> ${escapeHtml(profile.email)}</p>
+                <p><strong>Profile Info:</strong> ${escapeHtml(profile.profile_info || 'No profile information')}</p>
+                <p><strong>Created:</strong> ${escapeHtml(profile.created_at || 'N/A')}</p>
+            `;
+            profileDiv.style.display = 'block';
+        }
+
+        // Display all users (SECURE: No sensitive data exposure)
+        function displayAllUsers(users) {
+            const adminDiv = document.getElementById('adminResult');
+            let html = '<h3>🔒 Secure User List (Admin View)</h3>';
+            
+            users.forEach(user => {
+                html += `
+                    <div style="border: 1px solid #dee2e6; padding: 10px; margin: 10px 0; border-radius: 5px; background: #f8f9fa;">
+                        <p><strong>ID:</strong> ${escapeHtml(user.id)}</p>
+                        <p><strong>Username:</strong> ${escapeHtml(user.username)}</p>
+                        <p><strong>Email:</strong> ${escapeHtml(user.email)}</p>
+                        <p><strong>Created:</strong> ${escapeHtml(user.created_at || 'N/A')}</p>
+                        <p><strong>Last Login:</strong> ${escapeHtml(user.last_login || 'Never')}</p>
+                        <p><strong>Failed Attempts:</strong> ${escapeHtml(user.failed_login_attempts || 0)}</p>
+                        <p style="color: #27ae60;"><strong>🔒 Password:</strong> Securely hashed (not displayed)</p>
+                    </div>
+                `;
+            });
+            
+            adminDiv.innerHTML = html;
+            adminDiv.style.display = 'block';
+        }
+
+        // Escape HTML to prevent XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Show result message
+        function showResult(result, isSuccess) {
+            console.log('Showing result:', result, 'Success:', isSuccess);
+            const resultDiv = document.getElementById('result');
+            
+            if (!resultDiv) {
+                console.error('Result div not found!');
+                return;
+            }
+            
+            const message = result.message || result.error || JSON.stringify(result);
+            resultDiv.textContent = message;
+            resultDiv.className = `result ${isSuccess ? 'success' : 'error'}`;
+            resultDiv.style.display = 'block';
+            
+            console.log('Result displayed:', message);
+        }
+
+        // Initialize event listeners when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, setting up event listeners...');
+            
+            // Tab button event listeners
+            document.querySelectorAll('.tab').forEach(button => {
+                button.addEventListener('click', function() {
+                    const tabName = this.getAttribute('data-tab');
+                    console.log('Tab clicked:', tabName);
+                    showTab(tabName);
+                });
+            });
+            
+            // Logout button event listener
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', logout);
+            }
+            
+            // View all users button event listener
+            const viewAllUsersBtn = document.getElementById('viewAllUsersBtn');
+            if (viewAllUsersBtn) {
+                viewAllUsersBtn.addEventListener('click', viewAllUsers);
+            }
+            
+            console.log('Event listeners set up successfully');
+        });
+    </script>
+</body>
+</html>

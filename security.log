@@ -1,0 +1,39 @@
+{"level":"info","message":"🔒 SECURE User Management System running on http://localhost:3001","timestamp":"2025-08-09T11:44:24.070Z"}
+{"level":"info","message":"✅ Security measures implemented: Input validation, password hashing, JWT auth, logging","timestamp":"2025-08-09T11:44:24.073Z"}
+{"level":"info","message":"Connected to secure SQLite database","timestamp":"2025-08-09T11:44:24.076Z"}
+{"level":"info","message":"Secure users table created/verified","timestamp":"2025-08-09T11:44:24.090Z"}
+{"level":"info","message":"Secure admin user ready","timestamp":"2025-08-09T11:44:24.464Z"}
+{"level":"warn","message":"404 request: GET /favicon.ico","timestamp":"2025-08-09T11:45:00.785Z"}
+{"level":"warn","message":"404 request: GET /favicon.ico","timestamp":"2025-08-09T12:08:33.040Z"}
+{"level":"warn","message":"404 request: GET /favicon.ico","timestamp":"2025-08-09T12:08:34.610Z"}
+{"level":"warn","message":"404 request: GET /favicon.ico","timestamp":"2025-08-09T12:08:34.961Z"}
+{"level":"info","message":"Login attempt for user: admin","timestamp":"2025-08-09T12:30:20.372Z"}
+{"level":"info","message":"Successful login: admin","timestamp":"2025-08-09T12:30:20.670Z"}
+{"level":"warn","message":"404 request: GET /.well-known/appspecific/com.chrome.devtools.json","timestamp":"2025-08-09T12:32:31.140Z"}
+{"level":"info","message":"Shutting down secure server...","timestamp":"2025-08-09T12:32:43.266Z"}
+{"level":"info","message":"Database connection closed.","timestamp":"2025-08-09T12:32:43.275Z"}
+{"level":"info","message":"🔒 SECURE User Management System running on http://localhost:3001","timestamp":"2025-08-09T12:32:57.808Z"}
+{"level":"info","message":"✅ Security measures implemented: Input validation, password hashing, JWT auth, logging","timestamp":"2025-08-09T12:32:57.810Z"}
+{"level":"info","message":"Connected to secure SQLite database","timestamp":"2025-08-09T12:32:57.812Z"}
+{"level":"info","message":"Secure users table created/verified","timestamp":"2025-08-09T12:32:57.819Z"}
+{"level":"info","message":"Secure admin user ready","timestamp":"2025-08-09T12:32:58.056Z"}
+{"level":"warn","message":"404 request: GET /favicon.ico","timestamp":"2025-08-09T12:33:04.333Z"}
+{"level":"warn","message":"404 request: GET /.well-known/appspecific/com.chrome.devtools.json","timestamp":"2025-08-09T12:33:38.233Z"}
+{"level":"info","message":"🔒 SECURE User Management System running on http://localhost:3001","timestamp":"2025-08-09T12:35:26.553Z"}
+{"level":"info","message":"✅ Security measures implemented: Input validation, password hashing, JWT auth, logging","timestamp":"2025-08-09T12:35:26.556Z"}
+{"level":"info","message":"Connected to secure SQLite database","timestamp":"2025-08-09T12:35:26.558Z"}
+{"level":"info","message":"Secure users table created/verified","timestamp":"2025-08-09T12:35:26.560Z"}
+{"level":"info","message":"Secure admin user ready","timestamp":"2025-08-09T12:35:26.805Z"}
+{"level":"warn","message":"404 request: GET /favicon.ico","timestamp":"2025-08-09T12:35:36.127Z"}
+{"level":"info","message":"Login attempt for user: admin","timestamp":"2025-08-09T12:35:50.564Z"}
+{"level":"info","message":"Successful login: admin","timestamp":"2025-08-09T12:35:50.993Z"}
+{"level":"info","message":"Admin users list accessed by: admin","timestamp":"2025-08-09T12:36:08.343Z"}
+{"level":"info","message":"Signup attempt for user: testxss","timestamp":"2025-08-09T12:54:07.988Z"}
+{"level":"info","message":"User created successfully: testxss","timestamp":"2025-08-09T12:54:08.415Z"}
+{"level":"info","message":"Profile request for: testxss by user: admin","timestamp":"2025-08-09T12:54:27.558Z"}
+{"level":"info","message":"User logged out: admin","timestamp":"2025-08-09T12:54:40.920Z"}
+{"level":"info","message":"Login attempt for user: admin&#x27; OR &#x27;1&#x27;=&#x27;1","timestamp":"2025-08-09T12:55:45.050Z"}
+{"level":"warn","message":"Login failed - user not found: admin&#x27; OR &#x27;1&#x27;=&#x27;1","timestamp":"2025-08-09T12:55:45.056Z"}
+{"level":"warn","message":"404 request: GET /nice%20ports%2C/Tri%6Eity.txt%2ebak","timestamp":"2025-08-09T13:41:32.040Z"}
+{"level":"info","message":"Shutting down secure server...","timestamp":"2025-08-09T14:09:46.710Z"}
+{"level":"info","message":"Database connection closed.","timestamp":"2025-08-09T14:09:46.777Z"}
